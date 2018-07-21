@@ -1,0 +1,25 @@
+{
+  "name": "problem-solving",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vm-mishchenko/problem-solving.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vm-mishchenko/problem-solving/issues"
+  },
+  "homepage": "https://github.com/vm-mishchenko/problem-solving#readme",
+  "dependencies": {
+    "karma": "2.0.4",
+    "karma-jasmine": "1.1.2",
+    "jasmine-core": "3.1.0",
+    "karma-chrome-launcher": "2.2.0"
+  }
+}
