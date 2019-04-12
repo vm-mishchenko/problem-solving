@@ -21,6 +21,8 @@ const createCircularSequence = (/* items in the list = */arr) => {
   return head;
 };
 
+exports.createCircularSequence = createCircularSequence;
+
 const getCount = (head) => {
   let count = 0;
 

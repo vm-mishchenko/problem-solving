@@ -67,6 +67,8 @@ const createSequence = (/* items in the list = */arr) => {
   return head;
 };
 
+exports.createSequence = createSequence;
+
 const getCount = (head) => {
   let count = 1;
   let currentItem = head;
