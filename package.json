@@ -16,10 +16,9 @@
     "url": "https://github.com/vm-mishchenko/problem-solving/issues"
   },
   "homepage": "https://github.com/vm-mishchenko/problem-solving#readme",
-  "dependencies": {
-    "karma": "2.0.4",
-    "karma-jasmine": "1.1.2",
-    "jasmine-core": "3.1.0",
-    "karma-chrome-launcher": "2.2.0"
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.3"
   }
 }

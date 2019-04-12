@@ -1,24 +1,24 @@
 module.exports = function (config) {
-    config.set({
-        basePath: '.',
+  config.set({
+    basePath: '.',
 
-        frameworks: ['jasmine'],
+    frameworks: ['jasmine'],
 
-        files: [
-            'src/**/*.js'
-        ],
+    files: [
+      'src/**/*.js'
+    ],
 
-        browsers: ['Chrome'],
+    browsers: ['Chrome'],
 
-        reporters: [
-            'dots'
-        ],
+    reporters: [
+      'dots'
+    ],
 
-        logLevel: 'WARN',
+    logLevel: 'WARN',
 
-        plugins: [
-            'karma-jasmine',
-            'karma-chrome-launcher'
-        ],
-    });
+    plugins: [
+      'karma-jasmine',
+      'karma-chrome-launcher'
+    ],
+  });
 };
