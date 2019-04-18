@@ -53,10 +53,10 @@ const findNthFromTheEnd_twoPointers = (head, index) => {
 describe('nth-node-from-the-end', () => {
   it('should return based on hash table', () => {
     let node = findNthFromTheEnd_hashTable(createSequence([1, 2, 3]), 0);
-    expect(node.data).to.equal(3);
+    expect(node.val).to.equal(3);
 
     node = findNthFromTheEnd_hashTable(createSequence([1, 2, 3]), 1);
-    expect(node.data).to.equal(2);
+    expect(node.val).to.equal(2);
 
     node = findNthFromTheEnd_hashTable(createSequence([1, 2, 3]), 5);
     expect(node).to.equal(undefined);
@@ -64,10 +64,10 @@ describe('nth-node-from-the-end', () => {
 
   it('should return based on hash table', () => {
     let node = findNthFromTheEnd_twoPointers(createSequence([1, 2, 3]), 0);
-    expect(node.data).to.equal(3);
+    expect(node.val).to.equal(3);
 
     node = findNthFromTheEnd_twoPointers(createSequence([1, 2, 3]), 1);
-    expect(node.data).to.equal(2);
+    expect(node.val).to.equal(2);
 
     node = findNthFromTheEnd_twoPointers(createSequence([1, 2, 3]), 5);
     expect(node).to.equal(undefined);

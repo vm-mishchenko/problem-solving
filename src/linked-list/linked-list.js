@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 class LinkedList {
   constructor(data) {
     this.next = null;
-    this.data = data;
+    this.val = data;
   }
 }
 
@@ -82,6 +82,8 @@ const getCount = (head) => {
   return count;
 };
 
+exports.getCount = getCount;
+
 const getLastItem = (head) => {
   let currentItem = head;
 
@@ -92,13 +94,33 @@ const getLastItem = (head) => {
   return currentItem;
 };
 
+const toArray = (head) => {
+  const result = [];
+
+  if (!head) {
+    return result;
+  }
+
+  let currentItem = head;
+
+  do {
+    result.push(currentItem.val);
+
+    currentItem = currentItem.next;
+  } while (currentItem);
+
+  return result;
+};
+
+exports.toArray = toArray;
+
 describe('Linked list: basic', function () {
   describe('insert item', function () {
     it('should insert at the beginning', () => {
       let head = new LinkedList(1);
       head = insertItem(head, 0, 0);
 
-      expect(head.data).to.equal(0);
+      expect(head.val).to.equal(0);
     });
 
     it('should insert in the middle', () => {
@@ -106,7 +128,7 @@ describe('Linked list: basic', function () {
 
       insertItem(head, 'inserted', 1);
 
-      expect(head.next.data).to.equal('inserted');
+      expect(head.next.val).to.equal('inserted');
     });
 
     it('should insert at the end', () => {
@@ -115,7 +137,7 @@ describe('Linked list: basic', function () {
 
       insertItem(head, 'inserted', 3);
 
-      expect(getLastItem(head).data).to.equal('inserted');
+      expect(getLastItem(head).val).to.equal('inserted');
       expect(getCount(head)).to.equal(4);
     });
   });
@@ -126,7 +148,7 @@ describe('Linked list: basic', function () {
 
       head = deleteItem(head, 0);
       expect(getCount(head)).to.equal(2);
-      expect(head.data).to.equal(2);
+      expect(head.val).to.equal(2);
     });
 
     it('should delete at the middle', () => {
@@ -134,7 +156,7 @@ describe('Linked list: basic', function () {
 
       deleteItem(head, 1);
       expect(getCount(head)).to.equal(2);
-      expect(head.data).to.equal(1);
+      expect(head.val).to.equal(1);
     });
 
     it('should delete at the end', () => {
@@ -142,7 +164,7 @@ describe('Linked list: basic', function () {
 
       deleteItem(head, 2);
       expect(getCount(head)).to.equal(2);
-      expect(head.data).to.equal(1);
+      expect(head.val).to.equal(1);
     });
   });
 
@@ -159,14 +181,14 @@ describe('Linked list: basic', function () {
       const head = createSequence([1, 2]);
 
       expect(getCount(head)).to.equal(2);
-      expect(head.data).to.equal(1);
-      expect(head.next.data).to.equal(2);
+      expect(head.val).to.equal(1);
+      expect(head.next.val).to.equal(2);
     });
 
     it('should return last item', () => {
       const head = createSequence([1, 2]);
 
-      expect(getLastItem(head).data).to.equal(2);
+      expect(getLastItem(head).val).to.equal(2);
     });
   });
 });

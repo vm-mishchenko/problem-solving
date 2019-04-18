@@ -99,9 +99,9 @@ describe('Circular Linked List', () => {
   it('create circular linked list', () => {
     const head = createCircularSequence([1, 2, 3]);
 
-    expect(head.data).to.equal(1);
-    expect(head.next.data).to.equal(2);
-    expect(head.next.next.data).to.equal(3);
+    expect(head.val).to.equal(1);
+    expect(head.next.val).to.equal(2);
+    expect(head.next.next.val).to.equal(3);
     expect(head.next.next.next).to.equal(head);
   });
 
@@ -115,7 +115,7 @@ describe('Circular Linked List', () => {
   it('should return last item', () => {
     const head = createCircularSequence([1, 2, 3]);
 
-    expect(getLastItem(head).data).to.equal(3);
+    expect(getLastItem(head).val).to.equal(3);
   });
 
   it('should insert at the end', () => {
@@ -124,7 +124,7 @@ describe('Circular Linked List', () => {
     insertAtTheEnd(head, 4);
 
     expect(getCount(head)).to.equal(4);
-    expect(getLastItem(head).data).to.equal(4);
+    expect(getLastItem(head).val).to.equal(4);
   });
 
   it('should insert at the start', () => {
@@ -133,6 +133,6 @@ describe('Circular Linked List', () => {
     head = insertAtTheStart(head, 4);
 
     expect(getCount(head)).to.equal(4);
-    expect(head.data).to.equal(4);
+    expect(head.val).to.equal(4);
   });
 });
