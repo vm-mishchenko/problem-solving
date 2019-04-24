@@ -155,6 +155,8 @@ const levelOrderTraversal = (root, fn) => {
     }
 };
 
+exports.levelOrderTraversal = levelOrderTraversal;
+
 const insertElement = () => {
 };
 
@@ -175,6 +177,8 @@ const buildTree = (metadata) => {
 
     return new BinaryTreeNode(value, buildTree(left), buildTree(right));
 };
+
+exports.buildTree = buildTree;
 
 describe('Binary tree base:', () => {
     it('preOrderRecursive', () => {
