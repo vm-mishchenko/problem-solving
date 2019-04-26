@@ -101,6 +101,7 @@ const isPresentNonRecursion = (root, num) => {
   return isPresent;
 };
 
+// simple insert in left free side
 const insertNode = (root, num) => {
   const newNode = new BinaryTreeNode(num);
 
@@ -129,6 +130,123 @@ const insertNode = (root, num) => {
   }
 
   return root;
+};
+
+const getSizeRecursion = (root) => {
+  if (!root) {
+    return 0;
+  }
+
+  return getSizeRecursion(root.left) + 1 + getSizeRecursion(root.right);
+};
+
+const levelOrderReverse = (root, fn) => {
+  if (!root) {
+    return;
+  }
+
+  let current;
+  const nodes = [];
+  const stack = [root];
+
+  while (stack.length) {
+    current = stack.pop();
+
+    nodes.push(current);
+
+    if (current.left) {
+      stack.push(current.left);
+    }
+
+    if (current.right) {
+      stack.push(current.right);
+    }
+  }
+
+  nodes.reverse().forEach((node) => {
+    fn(node);
+  });
+};
+
+const getHeightRecursive = (root) => {
+  if (!root) {
+    return 0;
+  }
+
+  const leftTreeHeight = getHeightRecursive(root.left);
+  const rightTreeHeight = getHeightRecursive(root.right);
+
+  if (leftTreeHeight > rightTreeHeight) {
+    return leftTreeHeight + 1;
+  } else {
+    return rightTreeHeight + 1;
+  }
+};
+
+const getHeightNonRecursive = (root) => {
+  if (!root) {
+    return 0;
+  }
+
+  let level = 1;
+
+  let current;
+  const stack = [root];
+
+  while (stack.length) {
+    current = stack.pop();
+
+    if (current.left) {
+      stack.push(current.left);
+    }
+
+    if (current.right) {
+      stack.push(current.right);
+    }
+
+    if (current.left || current.right) {
+      level++;
+    }
+  }
+
+  return level;
+};
+
+const deepestNode = (root) => {
+  if (!root) {
+    return;
+  }
+
+  let deepest;
+  const stack = [root];
+
+  while (stack.length) {
+    deepest = stack.pop();
+
+    if (deepest.left) {
+      stack.push(deepest.left);
+    }
+
+    if (deepest.right) {
+      stack.push(deepest.right);
+    }
+  }
+
+  return deepest;
+};
+
+const isTwoTreeStructurallyIdentical = (tree1, tree2) => {
+  if (!tree1 && !tree2) {
+    return true;
+  }
+
+  if (!tree1 || !tree2) {
+    return false;
+  }
+
+  return tree1.data === tree2.data &&
+    isTwoTreeStructurallyIdentical(tree1.left) === isTwoTreeStructurallyIdentical(tree2.left) &&
+    isTwoTreeStructurallyIdentical(tree1.right) === isTwoTreeStructurallyIdentical(tree2.right)
 };
 
 describe('Simple task', () => {
@@ -162,5 +280,39 @@ describe('Simple task', () => {
     const tree = insertNode(new BinaryTreeNode(1), 2);
 
     expect(tree.left.data).to.equal(2);
+  });
+
+  it('getSizeRecursion ', () => {
+    expect(getSizeRecursion(buildTree([1, [2, [3], [4]], [3, [5], [6]]]))).to.equal(7);
+  });
+
+  it('levelOrderReverse', () => {
+    const values = [];
+
+    levelOrderReverse(buildTree([1, [2, [4], [5]], [3]]), (node) => {
+      values.push(node.data)
+    });
+
+    expect(values).to.eql([4, 5, 2, 3, 1]);
+  });
+
+  it('getHeightRecursive', () => {
+    expect(getHeightRecursive(buildTree([1, [2, [4], [5]], [3]]))).to.equal(3);
+  });
+
+  it('getTreeHeight', () => {
+    expect(getHeightNonRecursive(buildTree([1, [2, [4], [5]], [3]]))).to.equal(3);
+  });
+
+  it('deepestNode', () => {
+    expect(deepestNode(buildTree([1, [2, [4], [5]], [3]])).data).to.equal(4);
+  });
+
+  it('isTwoTreeStructurallyIdentical', () => {
+    const tree1 = buildTree([1, [2, [4], [5]], [3]]);
+    expect(isTwoTreeStructurallyIdentical(tree1, tree1)).to.equal(true);
+
+    const tree2 = buildTree([9, [2, [4], [5]], [3]]);
+    expect(isTwoTreeStructurallyIdentical(tree1, tree2)).to.equal(false);
   });
 });
