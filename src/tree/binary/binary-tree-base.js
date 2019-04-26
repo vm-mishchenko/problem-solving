@@ -161,7 +161,7 @@ const deleteElement = () => {
 };
 
 const buildTree = (metadata) => {
-  if (!metadata) {
+  if (!metadata || metadata.length === 0 || metadata[0] === null) {
     return null;
   }
 
