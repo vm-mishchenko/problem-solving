@@ -52,42 +52,38 @@ const inOrderRecursive = (root, fn) => {
 };
 
 const inOrderNonRecursive = (root, fn) => {
+  /*1) Create an empty stack S.
+    2) Initialize current node as root
+    3) Push the current node to S and set current = current->left until current is NULL
+    4) If current is NULL and stack is not empty then
+    a) Pop the top item from stack.
+      b) Print the popped item, set current = popped_item->right
+    c) Go to step 3.
+    5) If current is NULL and stack is empty then we are done.*/
+
   if (!root) {
     return;
   }
 
-  const stack = [root];
-  let currentNode = root.left;
+  const stack = [];
+  let currentNode = root;
 
   while (currentNode) {
-    if (currentNode.left) {
-      stack.push(currentNode);
-      currentNode = currentNode.left;
-    } else {
-      fn(currentNode);
-      currentNode = null;
-    }
+    stack.push(currentNode);
+    currentNode = currentNode.left;
   }
 
   while (stack.length) {
+    // take the deepest left node
     currentNode = stack.pop();
 
     fn(currentNode);
 
-    if (currentNode.right) {
-      stack.push(currentNode.right);
+    currentNode = currentNode.right;
 
-      currentNode = currentNode.right.left;
-
-      while (currentNode) {
-        if (currentNode.left) {
-          stack.push(currentNode);
-          currentNode = currentNode.left;
-        } else {
-          fn(currentNode);
-          currentNode = null;
-        }
-      }
+    while (currentNode) {
+      stack.push(currentNode);
+      currentNode = currentNode.left;
     }
   }
 };
