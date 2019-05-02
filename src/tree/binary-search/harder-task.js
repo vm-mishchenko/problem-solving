@@ -37,11 +37,11 @@ const isBSTreeMinMaxValues = (root) => {
     let isCurrentNodeOk = true;
 
     if (min) {
-      isCurrentNodeOk = node.data > min;
+      isCurrentNodeOk = node.data >= min;
     }
 
     if (max && isCurrentNodeOk) {
-      isCurrentNodeOk = node.data < max;
+      isCurrentNodeOk = node.data <= max;
     }
 
     return isCurrentNodeOk && isBSTNode(node.left, min, node.data - 1) && isBSTNode(node.right, node.data + 1, max);
@@ -83,6 +83,26 @@ const isBSTTreeInOrder = (root) => {
   return !allNodes.length || Boolean(allNodes.reduce((prev, next) => {
     return prev && next.data >= prev.data && next;
   }));
+};
+
+const convertSortedArrayToBST = (arr) => {
+  // [0, 1, 2]
+  // 1
+
+  // [0, 1, 2, 3]
+  // 3/2 = 1,5
+  if (!arr.length) {
+    return null;
+  }
+
+  const middleElIndex = Math.floor((arr.length - 1) / 2);
+  const middleElement = arr[middleElIndex];
+  const node = new BinaryTreeNode(middleElement);
+
+  node.left = convertSortedArrayToBST(arr.slice(0, middleElIndex));
+  node.right = convertSortedArrayToBST(arr.slice(middleElIndex + 1));
+
+  return node;
 };
 
 // Base Tree
@@ -128,6 +148,7 @@ describe('Binary search header tasks', () => {
   it('isBSTreeMinMaxValues', () => {
     expect(isBSTreeMinMaxValues(buildTree([]))).to.equal(true);
     expect(isBSTreeMinMaxValues(buildTree([1, [], []]))).to.equal(true);
+    expect(isBSTreeMinMaxValues(buildTree([2, [1], [3]]))).to.equal(true);
     expect(isBSTreeMinMaxValues(buildTree([20, [10, [5], [15, [13], [17]]], [30, [25], [35]]]))).to.equal(true);
 
     expect(isBSTreeMinMaxValues(buildTree([10, [100], [1]]))).to.equal(false);
@@ -141,5 +162,20 @@ describe('Binary search header tasks', () => {
 
     expect(isBSTTreeInOrder(buildTree([10, [100], [1]]))).to.equal(false);
     expect(isBSTTreeInOrder(buildTree([10, [5, [1], [1000]], [30]]))).to.equal(false);
+  });
+
+  it('convertSortedArrayToBST', () => {
+    let tree = convertSortedArrayToBST([]);
+    expect(isBSTreeMinMaxValues(tree)).to.equal(true);
+
+    tree = convertSortedArrayToBST([1]);
+    expect(isBSTreeMinMaxValues(tree)).to.equal(true);
+
+    tree = convertSortedArrayToBST([1, 2, 3]);
+    expect(tree.data).to.equal(2);
+    expect(isBSTreeMinMaxValues(tree)).to.equal(true);
+
+    tree = convertSortedArrayToBST([1, 2]);
+    expect(isBSTreeMinMaxValues(tree)).to.equal(true);
   });
 });
